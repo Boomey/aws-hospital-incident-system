@@ -7,8 +7,7 @@
 - Uploaded my HTML file and accessed it via the public S3 website endpoint.
 
 ### 📸 Screenshot:
-![Screenshot Description](H.E.I.R.jpg)
-
+![My Screenshot](images/H.E.I.R%20.jpg)
 
 ### 🔗 Demo Link:
 http://incident-report-form-oluwabunmi.s3-website.eu-north-1.amazonaws.com/
