@@ -1,0 +1,14 @@
+{
+  "Records": [
+    {
+      "s3": {
+        "bucket": {
+          "name": "report-08-2025"
+        },
+        "object": {
+          "key": "event.json"
+        }
+      }
+    }
+  ]
+}
