@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hospital Equipment Incident Report</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f8fb;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    form {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: 300px;
+    }
+    h2 {
+      text-align: center;
+      color: #2a9d8f;
+    }
+    label {
+      font-weight: bold;
+      color: #264653;
+    }
+    input, textarea, button {
+      width: 100%;
+      padding: 8px;
+      margin: 5px 0 15px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background-color: #2a9d8f;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #21867a;
+    }
+  </style>
+</head>
+<body>
+  <form id="incidentForm" enctype="multipart/form-data">
+    <h2>Report an Equipment Issue</h2>
+
+    <label for="equipment">Equipment Name:</label>
+    <input type="text" id="equipment" name="equipment" required>
+
+    <label for="location">Location:</label>
+    <input type="text" id="location" name="location" required>
+
+    <label for="tag">Equipment Tag No:</label>
+    <input type="text" id="tag" name="tag" required>
+
+    <label for="description">Issue Description:</label>
+    <textarea id="description" name="description" required></textarea>
+
+    <label for="file">Upload Photo (optional):</label>
+    <input type="file" id="file" name="file">
+
+    <button type="submit">Submit Report</button>
+  </form>
+
+  <script>
+    document.getElementById('incidentForm').addEventListener('submit', submitForm);
+
+    async function submitForm(e) {
+      e.preventDefault();
+
+      const fileInput = document.getElementById('file');
+      const file = fileInput.files.length > 0 ? fileInput.files[0] : null;
+
+      const payload = {
+        filename: file ? file.name : null,
+        contentType: file ? file.type : null,
+        equipmentName: document.getElementById('equipment').value.trim(),
+        location: document.getElementById('location').value.trim(),
+        tag: document.getElementById('tag').value.trim(),
+        description: document.getElementById('description').value.trim()
+      };
+
+      try {
+        console.log("📡 Sending to API Gateway...");
+        const res = await fetch('https://dly63xpacc.execute-api.eu-north-1.amazonaws.com/dev/create-upload', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          mode: 'cors', // ✅ ensures browser allows cross-origin
+          body: JSON.stringify(payload)
+        });
+
+        console.log("API Gateway Response:", res);
+        if (!res.ok) throw new Error(`Presigned URL request failed: ${res.status} ${res.statusText}`);
+
+        const data = await res.json();
+        console.log("Presigned URL Response Data:", data);
+
+        const { uploadUrl, id } = data;
+
+        if (file && uploadUrl) {
+          console.log("⬆️ Uploading to S3...");
+          const uploadRes = await fetch(uploadUrl, {
+            method: 'PUT',
+            body: file,
+            headers: {
+              'Content-Type': file.type
+            },
+            mode: 'cors' // ✅ ensure CORS on S3 PUT
+          });
+          console.log("S3 Upload Response:", uploadRes);
+          if (!uploadRes.ok) throw new Error(`S3 upload failed: ${uploadRes.statusText}`);
+        }
+
+        alert('✅ Report submitted successfully!');
+      } catch (err) {
+        console.error("❌ Error submitting report:", err);
+        alert('Something went wrong: ' + err.message);
+      }
+    }
+  </script>
+</body>
+</html>
+
