@@ -72,12 +72,11 @@ Node.js (AWS SDK v3) – backend runtime for Lambda
 HTML/CSS/JavaScript – frontend
 
 Architecture Diagram
+![Screenshot Architectural Diagram](images/Archtectural%20Diagram.jpg)
 
 Demo / Preview
 
 Here I will add screenshots and videos showing how the system works:
-
-![Screenshot Architectural Diagram](images/Archtectural%20Diagram.jpg)
 
 ![Screenshot Frontend](images/static%20web.jpg)
 

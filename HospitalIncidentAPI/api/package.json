@@ -1,0 +1,12 @@
+{
+  "name": "hospital-incident-api",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "test": "echo \"(no tests yet)\" && exit 0",
+    "lint": "echo \"(no linter yet)\" && exit 0",
+    "zip": "cd src && zip -r ../lambda.zip ."
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}
