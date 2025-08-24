@@ -82,4 +82,4 @@ Here I will add screenshots and videos showing how the system works:
 
 ![Screenshot SNSNotification](images/emailreceived.jpg)
 
-![Demo video](images/video.mp4)
+![Demo video](images/H.E.I.R.mp4)
