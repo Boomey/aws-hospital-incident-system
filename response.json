@@ -1,1 +1,0 @@
-{"statusCode":200,"headers":{"Access-Control-Allow-Origin":"*","Access-Control-Allow-Headers":"*","Access-Control-Allow-Methods":"OPTIONS,POST"},"body":"{\"message\":\"Upload & Notification sent successfully ✅\",\"incident\":{\"equipment\":\"Not provided\",\"tag\":\"Not provided\",\"location\":\"Not provided\",\"description\":\"Not provided\",\"fileName\":null}}"}
